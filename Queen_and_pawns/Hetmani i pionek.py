@@ -1,100 +1,100 @@
 import random
 
 
-def nowa_plansza():
-    plansza = [[' ', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H']]
+def new_board():
+    board = [[' ', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H']]
     for i in range(1, 9):
-        plansza.append([])
+        board.append([])
         for j in range(0, 8):
             if j == 0:
-                plansza[i].append(i)
-            plansza[i].append(" ")
-    return plansza
+                board[i].append(i)
+            board[i].append(" ")
+    return board
 
 
-def generuj_plansza(plansza):
-    for i in plansza:
+def generate_board(board):
+    for i in board:
         for j in i:
             print(" ", j, "|", end="")
         print("\n---------------------------------------------")
 
 
-def losuj_pionek(plansza):
+def losuj_pawn(board):
     a = random.randint(1, 8)
     b = random.randint(1, 8)
-    pionek = [a, b]
-    plansza[a][b] = 'P'
-    return pionek
+    pawn = [a, b]
+    board[a][b] = 'P'
+    return pawn
 
 
-def losuj_hetman(plansza, ilosc):
+def losuj_queen(board, ilosc):
     for i in range(0, ilosc):
         c = random.randint(1, 8)
         d = random.randint(1, 8)
-        while plansza[c][d] != " ":
+        while board[c][d] != " ":
             c = random.randint(1, 8)
             d = random.randint(1, 8)
-        plansza[c][d] = 'K'
+        board[c][d] = 'K'
 
 
-def pozycja(pionek, plansza):
+def position(pawn, board):
     x = 0
     n = 1
-    while pionek[0]-n > 0:
-        if plansza[pionek[0]-n][pionek[1]] == 'K':
+    while pawn[0]-n > 0:
+        if board[pawn[0]-n][pawn[1]] == 'K':
             x += 1
-            print("Hetman: ", plansza[0][pionek[1]], pionek[0]-n)
+            print("Hetman: ", board[0][pawn[1]], pawn[0]-n)
             break
         n += 1
     n = 0
-    while pionek[0] + n < 9:
-        if plansza[pionek[0]+n][pionek[1]] == 'K':
+    while pawn[0] + n < 9:
+        if board[pawn[0]+n][pawn[1]] == 'K':
             x += 1
-            print("Hetman: ", plansza[0][pionek[1]], pionek[0] + n)
-            break
-        n += 1
-    n = 0
-
-    while pionek[1] - n > 0:
-        if plansza[pionek[0]][pionek[1]-n] == 'K':
-            x += 1
-            print("Hetman: ", plansza[0][pionek[1]-n], pionek[0])
-            break
-        n += 1
-    n = 0
-    while pionek[1] + n < 9:
-        if plansza[pionek[0]][pionek[1]+n] == 'K':
-            x += 1
-            print("Hetman: ", plansza[0][pionek[1]+n], pionek[0])
+            print("Hetman: ", board[0][pawn[1]], pawn[0] + n)
             break
         n += 1
     n = 0
 
-    while pionek[0]-n > 0 and pionek[1]-n > 0:
-        if plansza[pionek[0]-n][pionek[1]-n] == 'K':
+    while pawn[1] - n > 0:
+        if board[pawn[0]][pawn[1]-n] == 'K':
             x += 1
-            print("Hetman: ", plansza[0][pionek[1]-n], pionek[0]-n)
+            print("Hetman: ", board[0][pawn[1]-n], pawn[0])
             break
         n += 1
     n = 0
-    while pionek[0]+n < 9 and pionek[1]+n < 9:
-        if plansza[pionek[0]+n][pionek[1]+n] == 'K':
+    while pawn[1] + n < 9:
+        if board[pawn[0]][pawn[1]+n] == 'K':
             x += 1
-            print("Hetman: ", plansza[0][pionek[1]+n], pionek[0]+n)
+            print("Hetman: ", board[0][pawn[1]+n], pawn[0])
             break
         n += 1
     n = 0
-    while pionek[0]-n > 0 and pionek[1]+n < 9:
-        if plansza[pionek[0]-n][pionek[1]+n] == 'K':
+
+    while pawn[0]-n > 0 and pawn[1]-n > 0:
+        if board[pawn[0]-n][pawn[1]-n] == 'K':
             x += 1
-            print("Hetman: ", plansza[0][pionek[1]+n], pionek[0]-n)
+            print("Hetman: ", board[0][pawn[1]-n], pawn[0]-n)
             break
         n += 1
     n = 0
-    while pionek[0]+n < 9 and pionek[1]-n > 0:
-        if plansza[pionek[0]+n][pionek[1]-n] == 'K':
+    while pawn[0]+n < 9 and pawn[1]+n < 9:
+        if board[pawn[0]+n][pawn[1]+n] == 'K':
             x += 1
-            print("Hetman: ", plansza[0][pionek[1]-n], pionek[0]+n)
+            print("Hetman: ", board[0][pawn[1]+n], pawn[0]+n)
+            break
+        n += 1
+    n = 0
+    while pawn[0]-n > 0 and pawn[1]+n < 9:
+        if board[pawn[0]-n][pawn[1]+n] == 'K':
+            x += 1
+            print("Hetman: ", board[0][pawn[1]+n], pawn[0]-n)
+            break
+        n += 1
+    n = 0
+    while pawn[0]+n < 9 and pawn[1]-n > 0:
+        if board[pawn[0]+n][pawn[1]-n] == 'K':
+            x += 1
+            print("Hetman: ", board[0][pawn[1]-n], pawn[0]+n)
             break
         n += 1
     if x != 0:
@@ -103,17 +103,17 @@ def pozycja(pionek, plansza):
         print("Żaden hetman nie może zbić pionka.")
 
 
-def usun(figura, plansza):
-    plansza[figura[0]][figura[1]] = " "
-    return plansza
+def usun(figura, board):
+    board[figura[0]][figura[1]] = " "
+    return board
 
 
 def main():
-    plansza = nowa_plansza()
-    pionek = losuj_pionek(plansza)
-    losuj_hetman(plansza, random.randint(1, 5))
-    generuj_plansza(plansza)
-    pozycja(pionek, plansza)
+    board = new_board()
+    pawn = losuj_pawn(board)
+    losuj_queen(board, random.randint(1, 5))
+    generate_board(board)
+    position(pawn, board)
     wybor = ''
     while wybor != '4':
         wybor = input("\nCo chcesz zrobić? \n\n"
@@ -124,32 +124,32 @@ def main():
                               "Wybierz cyfrę: ")
 
         if wybor == '1':
-            usun(pionek, plansza)
-            pionek = losuj_pionek(plansza)
+            usun(pawn, board)
+            pawn = losuj_pawn(board)
             print("Zmieniliśmy pozycję pionka.\n")
-            generuj_plansza(plansza)
+            generate_board(board)
 
         if wybor == '2':
-            hetman = [0,0]
+            queen = [0,0]
             liczby = [0, 1, 2, 3, 4, 5, 6, 7, 8]
 
-            while plansza[hetman[0]][hetman[1]] != 'K':
-                hetman.clear()
+            while board[queen[0]][queen[1]] != 'K':
+                queen.clear()
                 lista = input("Podaj pozycję hetmana do usunięcia: ")
                 lista = lista.upper()
                 lista = lista.replace(' ', '')
-                for i in range(len(plansza[0])):
-                    if lista[0] == plansza[0][i]:
-                        hetman.append(int(lista[1]))
-                        hetman.append(liczby[i])
-            usun(hetman, plansza)
+                for i in range(len(board[0])):
+                    if lista[0] == board[0][i]:
+                        queen.append(int(lista[1]))
+                        queen.append(liczby[i])
+            usun(queen, board)
             print("Usunęliśmy wskazanego hetmana.")
-            generuj_plansza(plansza)
+            generate_board(board)
 
 
         if wybor == '3':
-            generuj_plansza(plansza)
-            pozycja(pionek, plansza)
+            generate_board(board)
+            position(pawn, board)
 
 
 main()

@@ -5,19 +5,19 @@ def main():
     data = []
     choice = ''
     while choice != '8':
-        choice = input("\nWybierz co chcesz zrobić:\n"
-                       "1 - Wczytaj bazę danych z pliku\n"
-                       "2 - Wpisz dane do bazy w konsoli\n"
-                       "3 - Odczytaj dane\n"
-                       "4 - Zmień dane\n"
-                       "5 - Usuń rekord\n"
-                       "6 - Oblicz średni wiek osób w bazie\n"
-                       "7 - Oblicz liczbę kobiet i mężczyzn w bazie\n"
-                       "8 - Zakończ\n"
-                       "Wprowadź numer: ")
+        choice = input("Choose option:\n"
+                        "1 - Load the database from a file\n"
+                        "2 - Enter data into the database via the console\n"
+                        "3 - Read data\n"
+                        "4 - Update data\n"
+                        "5 - Delete a record\n"
+                        "6 - Calculate the average age of people in the database\n"
+                        "7 - Calculate the number of women and men in the database\n"
+                        "8 - Exit\n"
+                        "Enter number: ")
         print("")
         if choice == '1':
-            plik = input("Wprowadź nazwę pliku z rozszerzeniem: ")
+            plik = input("Enter file name with extension: ")
             data = CRUD1.create(plik, data)
         if choice == '2':
             data = CRUD1.write(data)
@@ -28,7 +28,7 @@ def main():
         if choice == '5':
             data = CRUD1.delete(data)
         if choice == '6':
-            print("Średnia wieku: ", CRUD1.average(data))
+            print("Average age: ", CRUD1.average(data))
         if choice == '7':
             CRUD1.count(data)
 

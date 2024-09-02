@@ -1,100 +1,100 @@
 import os
 
 
-def create(plik, dane):
+def create(file, data):
     array = []
-    if os.path.isfile(plik):
-        with open(plik, 'r', encoding='utf-8') as f:
+    if os.path.isfile(file):
+        with open(file, 'r', encoding='utf-8') as f:
             for line in f:
                 line = line.replace("\n", "")
                 array.append(line.split(";"))
     else:
-        print("Plik z danymi nie istnieje.")
+        print("File doesn't exist.")
 
     for j in range(len(array)):
         x = True
-        for i in range(len(dane)):
-            if dane[i][0] == array[j][0]:
+        for i in range(len(data)):
+            if data[i][0] == array[j][0]:
                 x = False
         if x:
-            dane.append(array[j])
+            data.append(array[j])
 
-    return dane
+    return data
 
 
-def write(dane):
+def write(data):
     array = []
-    unique_number = input("\nWprowadz ID: ")
-    for i in range(len(dane)):
-        if dane[i][0] == unique_number:
-            print("W bazie jest już podane ID.")
-            return write(dane)
+    unique_number = input("\nEnter ID: ")
+    for i in range(len(data)):
+        if data[i][0] == unique_number:
+            print("The ID is already provided in the database.")
+            return write(data)
     array.append(unique_number)
-    name = input("Wprowadz imie: ")
+    name = input("Enter name: ")
     array.append(name)
-    surname = input("Wprowadz nazwisko: ")
+    surname = input("Enter surname: ")
     array.append(surname)
-    pesel = input("Wprowadz pesel: ")
+    pesel = input("Enter pesel: ")
     array.append(pesel)
-    dane.append(array)
+    data.append(array)
 
-    return dane
+    return data
 
 
-def read(dane):
-    for i in range(len(dane)):
-        print("Id:", dane[i][0], "Imię:", dane[i][1], "Nazwisko:", dane[i][2], "Pesel:", dane[i][3])
+def read(data):
+    for i in range(len(data)):
+        print("Id:", data[i][0], "Name:", data[i][1], "Surname:", data[i][2], "Pesel:", data[i][3])
     print("")
 
 
-def update(dane):
-    unique_number = input("Wprowadz ID: ")
-    for i in range(len(dane)):
-        if dane[i][0] == unique_number:
-            name = input("Wprowadz imie: ")
-            dane[i][1] = name
-            surname = input("Wprowadz nazwisko: ")
-            dane[i][2] = surname
-            pesel = input("Wprowadz pesel: ")
-            dane[i][3] = pesel
-            return dane
+def update(data):
+    unique_number = input("Enter ID: ")
+    for i in range(len(data)):
+        if data[i][0] == unique_number:
+            name = input("Enter name: ")
+            data[i][1] = name
+            surname = input("Enter surname: ")
+            data[i][2] = surname
+            pesel = input("Enter pesel: ")
+            data[i][3] = pesel
+            return data
 
-    print("W bazie nie ma podanego ID.")
-    return update(dane)
-
-
-def delete(dane):
-    unique_number = input("Wprowadz ID: ")
-    for i in range(len(dane)):
-        if dane[i][0] == unique_number:
-            del dane[i]
-            return dane
-
-    print("W bazie nie ma podanego ID.")
-    return delete(dane)
+    print("There is no specified ID in the database.")
+    return update(data)
 
 
-def average(dane):
+def delete(data):
+    unique_number = input("Enter ID: ")
+    for i in range(len(data)):
+        if data[i][0] == unique_number:
+            del data[i]
+            return data
+
+    print("There is no specified ID in the database.")
+    return delete(data)
+
+
+def average(data):
     age = 0
-    for i in range(len(dane)):
-        pesel = dane[i][3]
+    for i in range(len(data)):
+        pesel = data[i][3]
         if int(pesel[2:4]) > 12:
             age = age + (2021 - (2000+int(pesel[:2])))
         elif int(pesel[:2]) <= 99:
             age = age + (2021 - (1900+int(pesel[:2])))
 
-    age = age/len(dane)
+    age = age/len(data)
     return age
 
 
-def count(dane):
+def count(data):
     men = 0
     women = 0
-    for i in range(len(dane)):
-        pesel = dane[i][3]
+    for i in range(len(data)):
+        pesel = data[i][3]
         if int(pesel[9]) % 2 == 0:
             women += 1
         elif int(pesel[9]) % 2 != 0:
             men += 1
-    print("Liczba kobiet:", women)
-    print("Liczba mężczyzn:", men)
+    print("Number of women:", women)
+    print("Number of men:", men)
