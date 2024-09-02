@@ -1,72 +1,52 @@
-# Zadanie: Staromodna wypożyczalnia: Django
+Client Requirements Specification
 
-| Termin oddania | Punkty     |
-|----------------|:-----------|
-|    12.06.2021 23:00 |   40        |
+The client runs an old-fashioned rental service where customers can rent the following items:
 
---- 
-Przekroczenie terminu o **n** zajęć wiąże się z karą:
-- punkty uzyskania za realizację zadania są dzielone przez **2<sup>n</sup>**.
+    Books, described by:
+        Author
+        Title
+        Genre
+        ISBN
+        Rental ID
+    Movies, described by:
+        Director
+        Title
+        Genre
+        Duration
+        Rental ID
+    CDs, described by:
+        Band
+        Title
+        Genre
+        Tracklist
+        Duration
+        Rental ID
 
---- 
-Bazując na [tutorialu do Django](https://docs.djangoproject.com/pl/3.2/intro/tutorial01/), 
-napisać własną aplikację web spełniającą następujące warunki:
+The application should provide functionality that allows logged-in users full editing capabilities for the items available for rent. The editing process must enforce the following validation rules:
 
-### Specyfikacja wymagań klienta
-Klient prowadzi staromodną wypożyczalnię, w której można wypożyczać:
-- książki opisane przez:
-    - autora
-    - tytuł
-    - gatunek
-    - ISBN
-    - ID w wypożyczalni
-  
-- filmy opisane przez:
-    - reżysera
-    - tytuł
-    - gatunek
-    - czas trwania
-    - ID w wypożyczalni
-    
-- płyty CD
-    - zespół
-    - tytuł
-    - gatunek
-    - lista utworów
-    - czas trwania
-    - ID w wypożyczalni
-    
-Aplikacja ma dostarczać funkcjonalność umożliwiającą zalogowanym użytkownikom pełną edycję
-posiadanych elementów do wypożyczenia. 
-Edycja powinna zapewniać następujące reguły poprawności:
-- książki:
-    - wszystkie ISBN są różne
-    - autor, tytuł i gatunek nie mogą się powtarzać
-  
-- filmy:
-    - liczby różnych filmów danego gatunku w ramach całej kolekcji mogą różnić się o 3
-    - jeżeli reżyser i tytuł się powtarza, to czas trwania musi się różnić
-    
-- płyty CD:
-    - w ramach jednego gatunku nie możemy oferować dwóch płyt o tej samej liście utworów
-    - płyty danego zespołu mogą być oferowane tylko w dwóch gatunkach
-    
-Aplikacja przechowuje liczby poszczególnych elementów do wypożyczania oraz dane wypożyczających i 
-ich dane o wypożyczeniach i zwrotach wypożyczanych elementów.
+    Books:
+        All ISBNs must be unique.
+        The combination of author, title, and genre must be unique.
 
-Aplikacja powinna również oferować statystyki wypożyczeń w zadanych odcinkach czasu:
-- popularność książek, filmów i płyt w podziale na gatunki
-- jednolity ranking wypożyczających w podziale na rodzaj i gatunek wypożyczanego elementy.
+    Movies:
+        The number of different movies within a genre in the entire collection can differ by no more than 3.
+        If the director and title are the same, the duration must differ.
 
-### Ograniczenia techniczne
-1. Dane aplikacji powinny być utrwalane w bazie danych.
-1. Wykorzystać mechanizm migracji bazy danych.
-1. Aplikacja powinna być wytworzona w technologii Django z wykorzystaniem *Class-based views*.
-1. Operacje powinny realizować pełen CRUD na danych programu.
-1. Aplikacja (prócz panelu administratora) powinna udostępniać logowanie użytkowników.
+    CDs:
+        Within the same genre, no two CDs can have the same tracklist.
+        CDs from the same band can only be offered in two genres.
 
-### Punktacja
-- **[10 punktów]** Modele danych, ich walidacja i mechanizm migracji danych.
-- **[15 punktów]** CRUD adekwatny do treści zadania wykorzystujący *Class-based views*.
-- **[10 punktów]** Logowanie i uprawnienia użytkowników do widoków.
-- **[5 punktów]** Prezentacja statystyk.
+The application should also track the quantities of each rental item, along with information about renters, their rentals, and returns.
+
+Additionally, the application should offer rental statistics over specified time periods, including:
+
+    The popularity of books, movies, and CDs by genre.
+    A unified ranking of renters, broken down by the type and genre of the rented item.
+
+Technical Requirements
+
+    The application's data should be persisted in a database.
+    The database should use Django's migration mechanism.
+    The application should be developed using Django technology with Class-based views.
+    The operations should implement full CRUD functionality for the program's data.
+    The application, in addition to the admin panel, should provide user login functionality.
